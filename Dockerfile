@@ -33,8 +33,6 @@ RUN go-assert-static.sh bin/* \
 
 # Create image with the cni-plugins
 FROM ${UBI_IMAGE}
-RUN yum update -y && \
-    rm -rf /var/cache/yum
 COPY --from=cni_plugins /opt/cni/ /opt/cni/
 WORKDIR /
 COPY install-cnis.sh .
