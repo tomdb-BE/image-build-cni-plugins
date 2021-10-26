@@ -6,9 +6,9 @@ endif
 
 BUILD_META ?= -multiarch-build$(shell date +%Y%m%d)
 ORG ?= rancher
-TAG ?= v1.0.0$(BUILD_META)
+TAG ?= v1.0.1$(BUILD_META)
 UBI_IMAGE ?= centos:7
-GOLANG_VERSION ?= v1.16.6b7-multiarch
+GOLANG_VERSION ?= v1.16.7b7-multiarch
 
 ifeq (,$(filter %$(BUILD_META),$(TAG)))
 $(error TAG needs to end with build metadata: $(BUILD_META))

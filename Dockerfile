@@ -1,5 +1,7 @@
 ARG UBI_IMAGE
 ARG GO_IMAGE
+ARG ARCH="amd64"
+ARG TAG="v1.0.1"
 
 ### Build the cni-plugins ###
 FROM ${GO_IMAGE} as cni_plugins
