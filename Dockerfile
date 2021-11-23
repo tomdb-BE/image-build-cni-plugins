@@ -1,10 +1,11 @@
-ARG UBI_IMAGE
-ARG GO_IMAGE
 ARG ARCH="amd64"
 ARG TAG="v1.0.1"
+ARG UBI_IMAGE=registry.access.redhat.com/ubi8/ubi-minimal:latest
+ARG GO_IMAGE=rancher/hardened-build-base:v1.16.10b7
 
 ### Build the cni-plugins ###
 FROM ${GO_IMAGE} as cni_plugins
+ARG ARCH
 ARG TAG
 RUN git clone --depth=1 https://github.com/containernetworking/plugins.git $GOPATH/src/github.com/containernetworking/plugins \
     && cd $GOPATH/src/github.com/containernetworking/plugins \
@@ -18,18 +19,19 @@ RUN git clone --depth=1 https://github.com/containernetworking/plugins.git $GOPA
     "
 WORKDIR $GOPATH/src/github.com/containernetworking/plugins
 RUN go-assert-static.sh bin/* \
-    && go-assert-boring.sh \
-    bin/bandwidth \
-    bin/bridge \
-    bin/dhcp \
-    bin/firewall \
-    bin/host-device \
-    bin/host-local \
-    bin/ipvlan \
-    bin/macvlan \
-    bin/portmap \
-    bin/ptp \
-    bin/vlan \
+    && if [ "${ARCH}" != "s390x" ]; then \
+             go-assert-boring.sh bin/bandwidth \
+             bin/bridge \
+             bin/dhcp \
+             bin/firewall \
+             bin/host-device \
+             bin/host-local \
+             bin/ipvlan \
+             bin/macvlan \
+             bin/portmap \
+             bin/ptp \
+             bin/vlan ; \
+           fi \
     && mkdir -vp /opt/cni/bin \
     && install -D -s bin/* /opt/cni/bin
 
