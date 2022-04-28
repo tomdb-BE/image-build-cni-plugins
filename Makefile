@@ -6,7 +6,7 @@ endif
 
 BUILD_META ?= -multiarch-build$(shell date +%Y%m%d)
 ORG ?= rancher
-TAG ?= v1.1.1$(BUILD_META)
+TAG ?= v1.0.1$(BUILD_META)
 UBI_IMAGE ?= registry.access.redhat.com/ubi8/ubi-minimal:latest
 GOLANG_VERSION ?= v1.18.1b7-multiarch
 
