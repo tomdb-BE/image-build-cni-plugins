@@ -22,6 +22,7 @@ image-build:
 		--pull \
 		--build-arg ARCH=$(ARCH) \
 		--build-arg TAG=$(TAG:$(BUILD_META)=) \
+		--build-arg ORG=$(ORG) \
 		--tag $(ORG)/hardened-cni-plugins:$(TAG) \
 		--tag $(ORG)/hardened-cni-plugins:$(TAG)-$(ARCH) \
 	.
